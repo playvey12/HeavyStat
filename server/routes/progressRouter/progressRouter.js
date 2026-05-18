@@ -69,6 +69,19 @@ progressRouter.post('/exerciseRecords', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+
+//delete
+progressRouter.delete('/exerciseRecords/:pointId', async (req, res) => {
+  try {
+    const user = await getUserDefault();
+    await ExerciseHistory.deleteOne({ _id: req.params.pointId, userId: user._id });
+    const remaining = await ExerciseHistory .find({ userId: user._id }).sort({ date: -1 });
+    res.json(remaining);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 //=============weightChart====
 
 
