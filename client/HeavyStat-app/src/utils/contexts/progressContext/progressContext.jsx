@@ -91,6 +91,27 @@ const addWeightToServer = async (newWeightPoint) => {
     }
 }
 
+const deleteRecordPoint = async (pointId) => {
+    try {
+        await progressService.deleteRecordPointOnServer(pointId)
+        const freshData = await progressService.getHistory()
+        const grouped = freshData.reduce((acc, record) => {
+            const name = record.exerciseName;
+            if (!acc[name]) acc[name] = [];
+            acc[name].push({
+                id: record._id,
+                exerciseWeightPoint: record.weight,
+                exerciseWeightDate: record.dateDisplay,
+                date: record.date
+            });
+            return acc;
+        }, {});
+        setAllRecords(grouped)
+    } catch (error) {
+        console.error('Ошибка удаления записи:', error)
+    }
+}
+
 //delete last
 const deleteWeightPoint = async (pointId) => {
     try {
@@ -112,7 +133,7 @@ const deleteWeightPoint = async (pointId) => {
       addRecordToServer,
       allRecords,  
       muscleList,
-
+deleteRecordPoint,
 
 
       addWeightToServer,

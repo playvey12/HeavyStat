@@ -22,6 +22,12 @@ newRecordValue:Number(newRecordValue)
     return response.data
 }
 
+async deleteRecordPointOnServer(pointId){
+  const response=await this.api.delete(`/exerciseRecords/${pointId}`)
+    return response.data
+
+}
+
 async getMuscleList() {
         const response = await this.api.get('/muscleList')
         return response.data
@@ -48,5 +54,10 @@ async deleteLastPoint(pointId){
       const response=await this.api.delete(`/weightHistory/${pointId}`)
     return response.data
 }
+
+
 }
+
+
+
 export default ProgressService;

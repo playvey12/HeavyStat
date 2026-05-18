@@ -27,7 +27,7 @@ export default function AddUserWeight() {
     }
     const handleDeleteLast = () => {
   if (weightsHistory.length > 0) {
-    const lastId = weightsHistory[weightsHistory.length - 1]._id; // ← _id, а не id
+    const lastId = weightsHistory[weightsHistory.length - 1]._id; 
     deleteWeightPoint(lastId);
   }
 };

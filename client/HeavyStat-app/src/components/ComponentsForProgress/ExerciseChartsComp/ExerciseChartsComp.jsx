@@ -11,7 +11,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Legend, 
 export default function ExerciseChartsComp() {
 
   
-  const { selectedPeriod, selectedExercise, handlePeriodChange, handleExerciseChange,allRecords  ,muscleList} = useProgress();
+  const { selectedPeriod, selectedExercise, handlePeriodChange, handleExerciseChange,allRecords  ,muscleList,deleteRecordPoint} = useProgress();
 
   const currentExerciseData = allRecords[selectedExercise] || [];
   //фильтр по датам
@@ -96,6 +96,19 @@ export default function ExerciseChartsComp() {
   };
 
 
+
+const handleDeletePoint = () => {
+    if (sortedData.length > 0) {
+        const lastPoint = sortedData[sortedData.length - 1]
+        const pointId = lastPoint._id || lastPoint.id  
+        if (pointId) {
+            deleteRecordPoint(pointId)
+        } else {
+            console.error('Нет ID для удаления:', lastPoint)
+        }
+    }
+}
+
   const EmptyState = () => (
     <div className={styles.noDataContainer}>
       <div className={styles.emptyIcon}>
@@ -159,7 +172,9 @@ export default function ExerciseChartsComp() {
               ))}
             </select>
           </div>
+            <button className={styles.deletePointBtn}  onClick={handleDeletePoint}><i className="fa-solid fa-trash"></i></button>
         </div>
+      
       </div>
       
       <div className={styles.chartWrapper}>
