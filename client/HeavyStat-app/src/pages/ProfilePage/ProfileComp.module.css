@@ -1,0 +1,264 @@
+/* src/styles/global.css */
+:root {
+    --bg-radial-start: #1e1e2e;
+    --bg-radial-end: #0d0d12;
+    --card-bg: #1a1a20;
+    --card-hover: #25252d;
+    --accent-color: #ff3b5c;
+    --accent-glow: rgba(255, 59, 92, 0.4);
+    --accent-main: #ff3b5c;
+    --accent-hover: #ff5f7a;
+    --accent-shadow: rgba(255, 59, 92, 0.3);
+    --text-main: #ffffff;
+    --text-dim: #8e8e93;
+    --text-bright: #ffffff;
+    --text-color-secondary: #888;
+    --icon-bg: #2c2c34;
+    --border-color: #2c2c34;
+    --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --transition-fast: 0.2s;
+    --transition-slow: 0.6s;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: radial-gradient(circle at top right, var(--bg-radial-start), var(--bg-radial-end));
+    color: var(--text-main);
+    font-family: var(--font-main);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px var(--accent-glow);
+        border-color: var(--accent-color);
+    }
+    50% {
+        box-shadow: 0 0 25px var(--accent-glow);
+        border-color: #ff5f7a;
+    }
+}
+
+@keyframes tapEffect {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.92);
+    }
+}
+
+.container {
+   
+    width: 470px;
+    
+    padding: 40px 20px 100px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profileHeader {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.avatarContainer {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 15px;
+}
+
+.avatarRing {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    padding: 5px;
+    animation: pulseGlow 3s infinite ease-in-out;
+}
+
+.avatarImg {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.levelBadge {
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-color);
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+.userName {
+    font-size: 28px;
+    margin: 10px 0 5px;
+}
+
+.tgUserName {
+    font-size: 16px;
+    margin: 5px 0 5px;
+    color: var(--text-dim);
+}
+
+.membershipStatus {
+    color: var(--accent-color);
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.statsCard {
+    background: var(--card-bg);
+    width: 100%;
+    border-radius: var(--radius-lg);
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    margin-bottom: 20px;
+    animation: fadeInUp var(--transition-slow) ease-out forwards;
+}
+
+.menuList {
+    width: 100%;
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 30px;
+    animation: fadeInUp 0.8s ease-out forwards;
+    border: 1px solid var(--border-color);
+}
+
+.version {
+    position: fixed;
+    right: 15px;
+    bottom: 80px;
+    font-size: 10px;
+    color: var(--text-color-secondary, #888);
+    opacity: 0.6;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.signOutBtn {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bottomNav {
+    position: fixed;
+    bottom: 20px;
+    width: calc(100% - 40px);
+    max-width: 430px;
+    background: rgba(26, 26, 32, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 25px;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+}
+
+/* Адаптив */
+@media screen and (max-width: 470px) {
+    .container {
+        padding: 20px 15px 90px 15px !important;
+    }
+    
+    .userName {
+        font-size: 20px;
+    }
+    
+    .statsCard {
+        padding: 15px 5px;
+    }
+    
+    .statValue {
+        font-size: 16px;
+    }
+    
+    .statItem {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px !important;
+    }
+    
+    .statLabel {
+        font-size: 9px !important;
+    }
+    
+    .statValue {
+        font-size: 22px !important;
+    }
+    
+    .bottomNav {
+        width: calc(100% - 20px);
+        bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .avatarContainer {
+        width: 85px;
+        height: 85px;
+    }
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px var(--accent-glow);
+        border-color: var(--accent-color);
+    }
+    50% {
+        box-shadow: 0 0 25px var(--accent-glow);
+        border-color: #ff5f7a;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

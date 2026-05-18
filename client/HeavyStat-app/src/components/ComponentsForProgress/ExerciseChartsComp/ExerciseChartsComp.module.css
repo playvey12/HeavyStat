@@ -1,0 +1,243 @@
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+.cardTitleGroup h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-main);
+}
+.cardControls {
+    display: flex;
+    gap: 15px;
+}
+.selectGroup label {
+    display: block;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-bottom: 5px;
+}
+
+
+.customSelect {
+    background: var(--icon-bg);
+    color: var(--text-main);
+    border: 1px solid transparent;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+}
+
+.customSelect:focus {
+    border-color: var(--accent-color);
+}
+.chartWrapper {
+    width: 100%;
+    height: 260px;
+    position: relative;
+    background: linear-gradient(180deg, rgba(255, 59, 92, 0.05) 0%, transparent 100%);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+.subtitle {
+    display: block;
+    color: var(--text-dim);
+    font-size: 12px;
+    margin-top: 4px;
+}
+/* Существующие стили остаются, добавьте следующие: */
+
+/* Контейнер для сообщения об отсутствии данных */
+.noDataContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  width: 100%;
+  background: linear-gradient(135deg, rgba(30, 30, 46, 0.5) 0%, rgba(20, 20, 30, 0.8) 100%);
+  border-radius: 20px;
+  padding: 40px 20px;
+  margin-top: 20px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Иконка для пустого состояния */
+.emptyIcon {
+  font-size: 80px;
+  color: #ff3b5c;
+  margin-bottom: 20px;
+  opacity: 0.6;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Заголовок сообщения */
+.noDataTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* Текст сообщения */
+.noDataText {
+  font-size: 16px;
+  color: #8e8e93;
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 1.5;
+  max-width: 400px;
+}
+
+/* Карточка-подсказка */
+.tipCard {
+  background: rgba(255, 59, 92, 0.1);
+  border: 1px solid rgba(255, 59, 92, 0.3);
+  border-radius: 16px;
+  padding: 20px 25px;
+  margin-top: 20px;
+  max-width: 350px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tipCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(255, 59, 92, 0.2);
+  border-color: rgba(255, 59, 92, 0.6);
+}
+
+/* Заголовок подсказки */
+.tipTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ff3b5c;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tipTitle i {
+  font-size: 20px;
+}
+
+/* Текст подсказки */
+.tipText {
+  font-size: 14px;
+  color: #c8c8d0;
+  line-height: 1.5;
+}
+
+/* Пример рекорда */
+.exampleRecord {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 12px;
+  font-family: monospace;
+  font-size: 13px;
+  color: #ff3b5c;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.exampleRecord span {
+  color: #8e8e93;
+}
+
+/* Кнопка-подсказка */
+.hintButton {
+  background: rgba(255, 59, 92, 0.2);
+  border: 1px solid rgba(255, 59, 92, 0.4);
+  color: #ff3b5c;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hintButton:hover {
+  background: rgba(255, 59, 92, 0.3);
+  border-color: #ff3b5c;
+  transform: scale(1.05);
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .noDataContainer {
+    min-height: 300px;
+    padding: 30px 15px;
+  }
+  
+  .emptyIcon {
+    font-size: 60px;
+  }
+  
+  .noDataTitle {
+    font-size: 20px;
+  }
+  
+  .noDataText {
+    font-size: 14px;
+  }
+  
+  .tipCard {
+    padding: 15px 20px;
+    margin: 15px;
+  }
+}
+
+/* Стили для карточки с выбором упражнения (если нужно выделить) */
+.selectHint {
+  background: linear-gradient(135deg, #ff3b5c20 0%, #ff3b5c05 100%);
+  border-radius: 16px;
+  padding: 15px;
+  margin-top: 20px;
+  border-left: 3px solid #ff3b5c;
+}
+
+.selectHint p {
+  color: #8e8e93;
+  font-size: 14px;
+  margin: 0;
+}
+
+.selectHint i {
+  color: #ff3b5c;
+  margin-right: 8px;
+}

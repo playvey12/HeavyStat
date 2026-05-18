@@ -1,0 +1,327 @@
+/* TrainMode.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+:root {
+    --bg-radial-start: #1e1e2e;
+    --bg-radial-end: #0d0d12;
+    --card-bg: #1a1a20;
+    --accent-color: #ff3b5c;
+    --accent-glow: rgba(255, 59, 92, 0.4);
+    --text-main: #ffffff;
+    --text-dim: #8e8e93;
+    --icon-bg: #2c2c34;
+    --border-color: #2c2c34;
+    --font-main: 'Montserrat', sans-serif;
+    --radius-lg: 32px;
+    --radius-md: 16px;
+    --card-hover: #25252d;
+}
+
+.workoutScreenContainer {
+    height: 100vh;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.workoutContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    height: 90%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.sessionHeader {
+    text-align: center;
+    width: 100%;
+}
+
+
+.mainSpacer {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.exerciseCardActive {
+    background: #1c1c24;
+    border-radius: 24px;
+    padding: 15px;
+    padding-bottom: 60px;
+    margin-bottom: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.badgeActive {
+    background: rgba(255, 59, 92, 0.1);
+    color: #ff3b5c;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.exerciseTitle {
+    font-size: 24px;
+    margin: 10px 0;
+    color: var(--text-main);
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.statBox {
+    background: #252530;
+    border-radius: 20px;
+    padding: 15px;
+    text-align: center;
+}
+
+.statLabel {
+    font-size: 10px;
+    font-weight: 700;
+    color: #8e8e93;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.statValue {
+    font-size: 32px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.unit {
+    font-size: 14px;
+    font-weight: 600;
+    color: #8e8e93;
+    margin-left: 4px;
+}
+
+.actionButtonsRow {
+    display: flex;
+    gap: 10px;
+}
+
+.btnMiniActionSave {
+    background: #2c2c34;
+    border: 1px solid #3a3a4c;
+    padding: 12px 20px;
+    border-radius: 14px;
+    color: white;
+    cursor: pointer;
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btnConfirmComplete {
+    background: #ff3b5c;
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    flex: 1;
+}
+
+.queueSection {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.queueHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.queueTitle {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--text-dim);
+    text-transform: uppercase;
+}
+
+.exercisesScrollContainer {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.exerciseCardMini {
+    background: #1c1c24;
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 16px;
+    margin-bottom: 8px;
+}
+
+.miniIcon {
+    background: #252530;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+.miniTitle {
+    flex-grow: 1;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.miniStatus {
+    color: #3a3a4c;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.emptyState {
+    text-align: center;
+}
+
+.emptyIconWrapper {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 40px;
+}
+
+.calendarCard {
+    width: 100%;
+    height: 100%;
+    background: var(--card-bg);
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+}
+
+.floatingBadge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--accent-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 20px var(--accent-glow);
+}
+
+.emptyTitle {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 12px;
+}
+
+.emptyText {
+    color: var(--text-dim);
+    font-size: 15px;
+}
+
+.sessionActions {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    padding-bottom: 20px;
+    margin-top: 60px;
+}
+
+.btnPrimaryLarge {
+    background: #ff3b5c;
+    height: 50px;
+    width: 45%;
+    border-radius: 18px;
+    border: none;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btnSecondaryLarge {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #2c2c34;
+    height: 50px;
+    width: 45%;
+    border-radius: 18px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btnSecondaryLargeDay {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #2c2c34;
+    height: 50px;
+    width: 100%;
+    border-radius: 18px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.red-icon {
+    color: var(--accent-color);
+}
+
+@media screen and (max-width: 470px) {
+    .workoutContent {
+        padding: 15px;
+    }
+    
+    .exerciseCardActive {
+        padding-bottom: 30px;
+    }
+    
+    .statsGrid {
+        gap: 12px;
+    }
+    
+    .statValue {
+        font-size: 24px;
+    }
+    
+    .timerValue {
+        font-size: 30px;
+    }
+    
+    .timerDisplay {
+        padding: 10px 0;
+    }
+}

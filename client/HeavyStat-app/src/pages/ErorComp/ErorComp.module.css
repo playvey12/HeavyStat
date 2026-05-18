@@ -1,0 +1,273 @@
+/* NotFoundPage.module.css */
+:root {
+    --bg-radial-start: #1e1e2e;
+    --bg-radial-end: #0d0d12;
+    --card-bg: #1a1a20;
+    --card-hover: #25252d;
+    --accent-color: #ff3b5c;
+    --accent-glow: rgba(255, 59, 92, 0.4);
+    --text-main: #ffffff;
+    --text-dim: #8e8e93;
+    --icon-bg: #2c2c34;
+    --border-color: #2c2c34;
+    --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --transition-fast: 0.2s;
+    --transition-slow: 0.6s;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    background: radial-gradient(circle at top right, var(--bg-radial-start), var(--bg-radial-end));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    
+    background: radial-gradient(circle at top right, var(--bg-radial-start), var(--bg-radial-end));
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.3;
+    top: -150px;
+    right: -150px;
+    animation: pulseGlow 4s infinite ease-in-out;
+}
+
+.container::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    
+    background: radial-gradient(circle at top right, var(--bg-radial-start), var(--bg-radial-end));
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.2;
+    bottom: -100px;
+    left: -100px;
+    animation: pulseGlow 5s infinite ease-in-out reverse;
+}
+
+.content {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    animation: fadeInUp 0.8s ease-out forwards;
+    z-index: 1;
+}
+
+.errorRing {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 30px;
+    border: 3px solid var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulseGlow 2s infinite ease-in-out;
+    background: rgba(26, 26, 32, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.errorRing::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border: 1px solid var(--accent-color);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: ringPulse 2s infinite ease-out;
+}
+
+.errorNumber {
+    font-size: 80px;
+    font-weight: bold;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.errorNumber i {
+    font-size: 60px;
+    color: var(--accent-color);
+    animation: bounceIcon 1.5s infinite ease-in-out;
+}
+
+.errorTitle {
+    font-size: 28px;
+    color: var(--text-main);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.errorDescription {
+    font-size: 16px;
+    color: var(--text-dim);
+    margin-bottom: 40px;
+    line-height: 1.5;
+    padding: 0 20px;
+}
+
+.homeBtn {
+    background: var(--accent-color);
+    border: none;
+    padding: 16px 30px;
+    border-radius: var(--radius-lg);
+    color: var(--text-main);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all var(--transition-fast) ease;
+    box-shadow: 0 4px 15px var(--accent-glow);
+    margin-bottom: 50px;
+}
+
+.homeBtn:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.1);
+    box-shadow: 0 8px 25px var(--accent-glow);
+}
+
+.homeBtn:active {
+    transform: translateY(0);
+}
+
+.homeBtn i {
+    font-size: 18px;
+}
+
+.motivationQuote {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    position: relative;
+}
+
+.motivationQuote i {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    color: var(--accent-color);
+    font-size: 20px;
+    opacity: 0.5;
+}
+
+.motivationQuote p {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.6;
+    padding-left: 30px;
+    font-style: italic;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px var(--accent-glow);
+        border-color: var(--accent-color);
+    }
+    50% {
+        box-shadow: 0 0 30px var(--accent-glow);
+        border-color: #ff5f7a;
+    }
+}
+
+@keyframes ringPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}
+
+@keyframes bounceIcon {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@media screen and (max-width: 470px) {
+    .errorRing {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .errorNumber {
+        font-size: 60px;
+    }
+    
+    .errorNumber i {
+        font-size: 45px;
+    }
+    
+    .errorTitle {
+        font-size: 24px;
+    }
+    
+    .errorDescription {
+        font-size: 14px;
+    }
+    
+    .homeBtn {
+        padding: 14px 25px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .errorRing {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .errorNumber {
+        font-size: 50px;
+    }
+    
+    .errorNumber i {
+        font-size: 38px;
+    }
+    
+    .errorTitle {
+        font-size: 20px;
+    }
+}

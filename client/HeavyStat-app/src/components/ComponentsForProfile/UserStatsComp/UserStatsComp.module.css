@@ -1,0 +1,16 @@
+
+.statItem {
+    text-align: center;
+}
+
+.statLabel {
+    display: block;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-bottom: 5px;
+}
+
+.statValue {
+    font-size: 18px;
+    font-weight: bold;
+}

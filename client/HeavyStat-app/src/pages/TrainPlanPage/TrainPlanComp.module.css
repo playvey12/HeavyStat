@@ -1,0 +1,117 @@
+/* TrainPlanComp.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+:root {
+    --bg-radial-start: #1e1e2e;
+    --bg-radial-end: #0d0d12;
+    --card-bg: #1a1a20;
+    --card-hover: #25252d;
+    --accent-color: #ff3b5c;
+    --accent-glow: rgba(255, 59, 92, 0.4);
+    --text-main: #ffffff;
+    --text-dim: #8e8e93;
+    --icon-bg: #2c2c34;
+    --border-color: #2c2c34;
+    --font-main: 'Montserrat', sans-serif;
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+}
+
+.trainPlanContainer {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    padding-bottom: 100px;
+    min-height: 100vh;
+}
+
+.planHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.headerText h1 {
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0;
+    color: var(--text-main);
+}
+
+.headerText p {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.calendarScroll {
+    display: flex;
+    gap: 12px;
+    padding: 10px 5px 25px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.calendarScroll::-webkit-scrollbar {
+    display: none;
+}
+
+.routineSection {
+    margin-top: 10px;
+}
+
+.sectionTitle {
+    font-size: 18px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--accent-color);
+    padding-left: 12px;
+    color: var(--text-main);
+}
+
+.exerciseList {
+    display: flex;
+    flex-direction: column;
+  
+    gap: 12px;
+    height: 450px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.exerciseList::-webkit-scrollbar {
+    width: 6px;
+}
+
+.exerciseList::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.exerciseList::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 10px;
+}
+
+.actionButtons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+
+
+
+
+@media screen and (max-width: 470px) {
+    .trainPlanContainer {
+        padding: 15px;
+    }
+    
+    .headerText h1 {
+        font-size: 22px;
+    }
+}

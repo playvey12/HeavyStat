@@ -1,0 +1,24 @@
+.addExerciseBtn, .generatePlanBtn {
+    flex: 1;
+    padding: 15px;
+    border-radius: var(--radius-md);
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.addExerciseBtn {
+    background: var(--accent-color);
+    color: #fff;
+    box-shadow: 0 5px 15px var(--accent-glow);
+}
+.generatePlanBtn {
+    background: var(--icon-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}

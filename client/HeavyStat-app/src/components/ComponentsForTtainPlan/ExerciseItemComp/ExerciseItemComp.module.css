@@ -1,0 +1,125 @@
+.emptyState {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px dashed var(--border-color);
+  margin-top: 10%;
+}
+
+.emptyState i {
+    font-size: 48px;
+    color: var(--accent-color);
+    opacity: 0.5;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.emptyState p {
+    color: var(--text-main);
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.emptyState span {
+    color: var(--text-dim);
+    font-size: 13px;
+}
+.exerciseCard {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.exerciseCard:hover {
+    background: var(--card-hover);
+   
+}
+
+.editBtn, .deleteBtn {
+    background: var(--icon-bg);
+    border: none;
+    color: var(--text-dim);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.editBtn:hover {
+    color: #fff;
+    background: #3a3a45;
+}
+
+.deleteBtn:hover {
+    color: var(--accent-color);
+    background: #3a3a45;
+}
+
+.actionButtons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+
+.exerciseIconWrapper {
+    width: 50px;
+    height: 50px;
+    background: var(--icon-bg);
+    border-radius: var(--radius-md);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--accent-color);
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+.exerciseInfo {
+    flex-grow: 1;
+}
+
+.exerciseInfo h3 {
+    margin: 0 0 5px;
+    font-size: 17px;
+    color: var(--text-main);
+}
+
+.exerciseInfo p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-dim);
+}
+
+.exerciseInfo i {
+    color: var(--accent-color);
+    margin-right: 4px;
+}
+
+.exerciseActions {
+    display: flex;
+    gap: 8px;
+}
+
+@media screen and (max-width: 470px) {
+
+    
+    .exerciseCard {
+        padding: 12px 15px;
+    }
+    
+    .exerciseIconWrapper {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .exerciseInfo h3 {
+        font-size: 15px;
+    }
+}

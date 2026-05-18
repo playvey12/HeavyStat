@@ -1,0 +1,636 @@
+/* TrainModeExerciseListComp.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+:root {
+    --bg-radial-start: #1e1e2e;
+    --bg-radial-end: #0d0d12;
+    --card-bg: #1a1a20;
+    --accent-color: #ff3b5c;
+    --accent-glow: rgba(255, 59, 92, 0.4);
+    --text-main: #ffffff;
+    --text-dim: #8e8e93;
+    --icon-bg: #2c2c34;
+    --border-color: #2c2c34;
+    --font-main: 'Montserrat', sans-serif;
+    --radius-lg: 32px;
+    --radius-md: 16px;
+    --card-hover: #25252d;
+}
+
+.exercisesWrapper {
+    width: 100%;
+}
+
+/* Анимация для кнопки "Назад" */
+.backToDayBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    width: 100%;
+    color: var(--text-dim);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.backToDayBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.backToDayBtn:active {
+    transform: translateY(0);
+}
+
+/* Анимация появления карточки упражнения */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Анимация пульсации для активного упражнения */
+@keyframes gentlePulse {
+    0% {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 10px 30px rgba(255, 59, 92, 0.2);
+    }
+    100% {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.exerciseCardActive {
+    background: #1c1c24;
+    border-radius: 24px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: slideIn 0.4s ease-out, gentlePulse 3s ease-in-out infinite;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.badgeActive {
+    background: rgba(255, 59, 92, 0.1);
+    color: #ff3b5c;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Анимация для иконки гантели */
+@keyframes iconBounce {
+    0%, 100% { transform: rotate(0deg); }
+    20% { transform: rotate(-10deg); }
+    40% { transform: rotate(10deg); }
+    60% { transform: rotate(-5deg); }
+    80% { transform: rotate(5deg); }
+}
+
+.red-icon {
+    color: var(--accent-color);
+    font-size: 20px;
+    transition: all 0.2s ease;
+}
+
+.exerciseCardActive:hover .red-icon {
+    animation: iconBounce 0.5s ease-in-out;
+}
+
+.exerciseTitle {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 10px 0;
+    color: var(--text-main);
+}
+
+/* Анимация для стат боксов */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.statBox {
+    background: #252530;
+    border-radius: 20px;
+    padding: 15px;
+    text-align: center;
+    animation: fadeInUp 0.3s ease-out;
+    transition: all 0.2s ease;
+}
+
+.statBox:hover {
+    transform: translateY(-3px);
+    background: #2d2d38;
+}
+
+.statLabel {
+    font-size: 10px;
+    font-weight: 700;
+    color: #8e8e93;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.statValue {
+    font-size: 32px;
+    font-weight: 600;
+    color: #ffffff;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 4px;
+}
+
+.weightValue {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.unit {
+    font-size: 14px;
+    font-weight: 600;
+    color: #8e8e93;
+}
+
+.repsBlock {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 4px;
+}
+
+.repsValue {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent-color);
+}
+
+.repsUnit {
+    font-size: 14px;
+    color: var(--text-dim);
+}
+
+.approachesProgress {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    margin: 15px 0;
+    border: 1px solid var(--border-color);
+}
+
+.approachesHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.approachesLabel {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+}
+
+/* Анимация для счетчика подходов */
+@keyframes counterPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); color: var(--accent-color); }
+    100% { transform: scale(1); }
+}
+
+.approachesCounter {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent-color);
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.approachesCounter:active {
+    animation: counterPop 0.3s ease-out;
+}
+
+.progressBar {
+    height: 6px;
+    background: var(--icon-bg);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: var(--accent-color);
+    border-radius: 3px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.actionButtonsRow {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btnMiniActionSave {
+    background: #2c2c34;
+    border: 1px solid #3a3a4c;
+    padding: 12px 20px;
+    border-radius: 14px;
+    color: white;
+    cursor: pointer;
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.btnMiniActionSave:hover {
+    background: #3a3a45;
+    transform: translateY(-2px);
+    border-color: var(--accent-color);
+}
+
+.btnMiniActionSave:active {
+    transform: translateY(0);
+}
+.btnMiniActionSave:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+.btnMiniActionSave:not(:disabled):active {
+    transform: scale(0.95);
+}
+/* Анимация для кнопки подтверждения */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+.btnEditWeight{
+   background: #ff3b5c;
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.2s ease; 
+}
+.btnEditWeight:not(:disabled):hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.btnEditWeight:not(:disabled):active {
+    transform: scale(0.95);
+}
+
+.btnEditWeight:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+.btnConfirmComplete {
+    background: #ff3b5c;
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.2s ease;
+}
+
+.btnConfirmComplete:not(:disabled):hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.btnConfirmComplete:not(:disabled):active {
+    transform: scale(0.95);
+}
+
+.btnConfirmComplete:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.queueSection {
+    width: 100%;
+    margin-top: 10px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+}
+
+.queueHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.queueTitle {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--text-dim);
+    text-transform: uppercase;
+}
+
+/* Анимация появления скроллбара */
+.exercisesScrollContainer {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 5px;
+    scroll-behavior: smooth;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.exercisesScrollContainer::-webkit-scrollbar {
+    width: 4px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.exercisesScrollContainer:hover::-webkit-scrollbar {
+    opacity: 1;
+}
+
+.exercisesScrollContainer::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.exercisesScrollContainer::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 10px;
+}
+
+/* Анимация для элементов очереди */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.exerciseCardMini {
+    background: #1c1c24;
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 16px;
+    margin-bottom: 8px;
+    animation: fadeInLeft 0.3s ease-out;
+    transition: all 0.2s ease;
+}
+
+.exerciseCardMini:hover {
+    transform: translateX(5px);
+    background: #252530;
+}
+
+.miniIcon {
+    background: #252530;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+.miniIcon i {
+    color: var(--accent-color);
+    font-size: 18px;
+}
+
+.queueBar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.miniTitle {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-dim);
+}
+
+.miniStatus {
+    color: #3a3a4c;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 470px) {
+    .exerciseCardActive {
+        padding: 15px;
+    }
+    
+    .statsGrid {
+        gap: 12px;
+    }
+    
+    .statValue {
+        font-size: 24px;
+    }
+    
+    .weightValue {
+        font-size: 24px;
+    }
+    
+    .repsValue {
+        font-size: 28px;
+    }
+    
+    .exerciseTitle {
+        font-size: 18px;
+    }
+    
+    .backToDayBtn {
+        padding: 8px 12px;
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+}
+/* TrainModeExerciseListComp.module.css */
+
+/* Анимация исчезновения текущего упражнения */
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+}
+
+/* Анимация появления нового упражнения */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Анимация для очереди - поднятие элемента */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Класс для удаляемого упражнения */
+.exerciseCardActive.removing {
+    animation: slideOutRight 0.3s ease-out forwards;
+}
+
+/* Класс для нового активного упражнения */
+.exerciseCardActive.entering {
+    animation: slideInRight 0.4s ease-out forwards;
+}
+
+/* Анимация для элемента очереди при переходе в активное */
+.exerciseCardMini.movingToActive {
+    animation: slideUp 0.3s ease-out forwards;
+    background: var(--accent-color);
+    color: white;
+}
+
+.exerciseCardMini.movingToActive .miniTitle {
+    color: white;
+}
+
+.exerciseCardMini.movingToActive .miniStatus {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Анимация для пульсации при смене упражнения */
+@keyframes successPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 var(--accent-glow);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 0 10px rgba(255, 59, 92, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 59, 92, 0);
+    }
+}
+
+.exerciseCompleted {
+    animation: successPulse 0.5s ease-out;
+}
+/* Бейдж завершения упражнения */
+.completedBadge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(255, 59, 92, 0.15);
+    border: 1px solid var(--accent-color);
+    border-radius: var(--radius-md);
+    padding: 8px 12px;
+    margin-bottom: 15px;
+    animation: successPulse 0.5s ease-out;
+}
+
+.completedBadge i {
+    color: var(--accent-color);
+    font-size: 16px;
+}
+
+.completedBadge span {
+    color: var(--accent-color);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Анимация пульсации для бейджа */
+@keyframes successPulse {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

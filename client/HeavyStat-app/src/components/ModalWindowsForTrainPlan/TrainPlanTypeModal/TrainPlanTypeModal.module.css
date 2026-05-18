@@ -1,0 +1,222 @@
+/* TrainPlanTypeModal.module.css */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    border: none;
+    padding: 0;
+}
+
+.modal::backdrop {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+}
+
+.modalContent {
+    background: var(--modal-bg);
+    width: 90%;
+    max-width: 420px;
+    padding: 30px 25px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    position: relative;
+    animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.closeBtn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 32px;
+    
+    height: 32px;
+    background: var(--accent-color);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+    z-index: 10;
+}
+
+.closeBtn:hover {
+    transform: scale(1.1);
+}
+
+.modalHeader {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.headerIcon {
+    width: 60px;
+    height: 60px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.headerIcon i {
+    font-size: 28px;
+    color: white;
+}
+
+.modalHeader h2 {
+    font-size: 22px;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.modalHeader p {
+    font-size: 14px;
+    color: var(--text-dim);
+}
+
+.plansGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.plansGrid::-webkit-scrollbar {
+    width: 4px;
+}
+
+.plansGrid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.plansGrid::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 10px;
+}
+
+.planCard {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.planCard:hover {
+    background: var(--card-hover);
+    transform: translateX(5px);
+    border-color: var(--accent-color);
+}
+
+.planIcon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 59, 92, 0.1);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.planIcon i {
+    font-size: 24px;
+    color: var(--accent-color);
+}
+
+.planInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.planName {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.planDesc {
+    font-size: 12px;
+    color: var(--text-dim);
+}
+
+.planCard i.fa-chevron-right {
+    color: var(--accent-color);
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.planCard:hover i.fa-chevron-right {
+    opacity: 1;
+}
+
+@media screen and (max-width: 470px) {
+    .modalContent {
+        padding: 25px 20px;
+    }
+    
+    .modalHeader h2 {
+        font-size: 20px;
+    }
+    
+    .headerIcon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .headerIcon i {
+        font-size: 24px;
+    }
+    
+    .planCard {
+        padding: 14px 16px;
+    }
+    
+    .planIcon {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .planIcon i {
+        font-size: 20px;
+    }
+    
+    .planName {
+        font-size: 15px;
+    }
+}

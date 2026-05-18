@@ -1,0 +1,121 @@
+/* UserWeightChartsComp.module.css */
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.cardHeader h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-main);
+}
+
+.periodBadge {
+    background: var(--icon-bg);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-dim);
+}
+
+.barChart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 160px;
+    margin: 20px 0 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.barWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    flex: 1;
+}
+
+.barValue {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.bar {
+    width: 35px;
+    background: var(--icon-bg);
+    border-radius: 6px 6px 0 0;
+    transition: height 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    min-height: 3px;
+}
+
+.bar.active {
+    background: var(--accent-color);
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.barLabels {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-dim);
+    font-size: 10px;
+    margin-top: 10px;
+    padding: 0 5px;
+}
+
+.historyStats {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+.statItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.statLabel {
+    color: var(--text-dim);
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.statValue {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--text-main);
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 0 5px var(--accent-glow);
+    }
+    50% {
+        box-shadow: 0 0 15px var(--accent-glow);
+    }
+}
+
+@media (max-width: 768px) {
+    .bar {
+        width: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bar {
+        width: 20px;
+    }
+    
+    .barValue {
+        font-size: 9px;
+    }
+}

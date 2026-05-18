@@ -1,0 +1,211 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    border: none;
+}
+
+.modalContent {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.modalContent::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modalContent::-webkit-scrollbar-track {
+    background: var(--border-color);
+    border-radius: 10px;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 10px;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--text-dim);
+    transition: color var(--transition-fast);
+}
+
+.closeBtn:hover {
+    color: var(--accent-color);
+}
+
+.modalHeader {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.headerIcon {
+    font-size: 48px;
+    color: var(--accent-color);
+    margin-bottom: 12px;
+}
+
+.modalHeader h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--text-main), var(--text-dim));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.modalHeader p {
+    color: var(--text-dim);
+    font-size: 14px;
+}
+
+/* Прогресс */
+.progressSection {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border-color);
+}
+
+.progressHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-dim);
+}
+
+.progressBar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+    border-radius: 10px;
+    transition: width var(--transition-slow);
+    box-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* Сетка достижений */
+.achievementsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.achievementCard {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    position: relative;
+    border: 1px solid transparent;
+}
+
+.achievementCard.unlocked {
+    background: linear-gradient(135deg, rgba(255, 59, 92, 0.12), rgba(255, 59, 92, 0.04));
+    border-color: rgba(255, 59, 92, 0.2);
+}
+
+.achievementCard.unlocked:hover {
+    transform: translateX(4px);
+    border-color: var(--accent-glow);
+}
+
+.achievementCard.locked {
+    opacity: 0.5;
+    filter: grayscale(0.3);
+}
+
+.achievementIcon {
+    width: 48px;
+    height: 48px;
+    background: var(--icon-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: var(--accent-color);
+}
+
+.locked .achievementIcon {
+    color: var(--text-dim);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.achievementInfo {
+    flex: 1;
+}
+
+.achievementTitle {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.achievementDesc {
+    font-size: 12px;
+    color: var(--text-dim);
+}
+
+.checkMark {
+    color: #4ade80;
+    font-size: 20px;
+}
+
+.closeBtnMain {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    border: none;
+    border-radius: 40px;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: 0 4px 12px var(--accent-shadow);
+}
+
+.closeBtnMain:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px var(--accent-shadow);
+    filter: brightness(1.05);
+}
+
+.closeBtnMain:active {
+    transform: translateY(1px);
+}

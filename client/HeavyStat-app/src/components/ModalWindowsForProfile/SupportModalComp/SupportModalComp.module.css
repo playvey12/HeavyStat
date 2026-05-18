@@ -1,0 +1,206 @@
+/* HelpModalComp.module.css */
+:root {
+    --modal-overlay: rgba(0, 0, 0, 0.85);
+    --modal-bg: #1c1c24;
+    --help-item-bg: #252530;
+    --tg-color: #229ED9;
+    --accent-main: #ff3b5c;
+    --accent-glow: rgba(255, 59, 92, 0.4);
+    --text-bright: #ffffff;
+    --text-muted: #8e8e93;
+    --text-dim: #8e8e93;
+    --radius-md: 15px;
+    --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background-color: var(--modal-overlay);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex !important;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modalContent {
+    position: relative;
+    background: var(--modal-bg);
+    width: 90%;
+    max-width: 400px;
+    padding: 40px 25px 30px;
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    transform: scale(0.8);
+    transition: transform 0.3s var(--transition-bounce);
+}
+
+.modal.active .modalContent {
+    transform: scale(1);
+}
+
+.modalHeader {
+    margin-bottom: 10px;
+}
+
+.modalHeader h2 {
+    font-size: 22px;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.modalBody {
+    width: 100%;
+}
+
+.description {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 25px;
+    padding-top: 15px;
+}
+
+.helpItem {
+    background: var(--help-item-bg);
+    padding: 18px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    transition: transform 0.2s ease, background 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.helpItem:hover {
+    transform: translateY(-2px);
+    background: #2a2a38;
+}
+
+.helpItemLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mailIcon {
+    font-size: 18px;
+    color: var(--accent-main);
+    animation: mailSwing 3s infinite ease-in-out;
+}
+
+.helpItemText {
+    text-align: left;
+}
+
+.helpLabel {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.helpValue {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.copyBtn {
+    background: transparent;
+    border: none;
+    color: var(--accent-main);
+    font-size: 10px;
+    cursor: pointer;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+.copyBtn:hover {
+    background: rgba(255, 59, 92, 0.1);
+}
+
+.saveModalBtn {
+    width: 100%;
+    background: var(--accent-main);
+    border: none;
+    padding: 18px;
+    border-radius: var(--radius-md);
+    color: var(--text-bright);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px var(--accent-glow);
+    transition: background 0.3s, transform 0.2s;
+    margin-top: 10px;
+}
+
+.saveModalBtn:active {
+    transform: scale(0.97);
+}
+
+.closeBtn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 34px;
+    height: 34px;
+    background-color: var(--accent-main);
+    color: var(--text-bright);
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--accent-glow);
+    z-index: 10;
+}
+
+.closeBtn:active {
+    transform: scale(0.9);
+}
+
+.helpValue{
+    color: var(--accent-main);
+}
+
+@keyframes mailSwing {
+    0%, 100% { transform: rotate(0); }
+    20% { transform: rotate(-15deg); }
+    40% { transform: rotate(10deg); }
+    60% { transform: rotate(-5deg); }
+    80% { transform: rotate(0); }
+}
+
+@media screen and (max-width: 400px) {
+    .modalContent {
+        padding: 35px 20px 25px;
+        width: 95%;
+    }
+    
+    .helpItem {
+        padding: 15px;
+    }
+    
+    .helpValue {
+        font-size: 12px;
+    }
+}
