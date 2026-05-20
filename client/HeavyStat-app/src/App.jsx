@@ -1,28 +1,35 @@
-import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import ProfileComp from './pages/ProfilePage/ProfileComp'
-import FooterComp from './components/Footer/FooterComp'
-import TrainPlanComp from './pages/TrainPlanPage/TrainPlanComp'
-import ProgressComp from './pages/ProgressPage/ProgressComp'
-import TrainModeComp from './pages/TrainModePage/TrainModeComp'
-import ErorComp from './pages/ErorComp/ErorComp'
+// App.jsx
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ProfileComp from './pages/ProfilePage/ProfileComp';
+import FooterComp from './components/Footer/FooterComp';
+import TrainPlanComp from './pages/TrainPlanPage/TrainPlanComp';
+import ProgressComp from './pages/ProgressPage/ProgressComp';
+import TrainModeComp from './pages/TrainModePage/TrainModeComp';
+import ErorComp from './pages/ErorComp/ErorComp';
+import AuthPageComp from './pages/AuthPage/AuthPageComp';
+import { useUser } from './utils/contexts/userContext/userContext';
+
 export default function App() {
+  const { userName, telegrammUserName, avatarUrl } = useUser();
+
+  const isAuthenticated = userName !== "Пользователь" && userName !== null;
+
+  if (!isAuthenticated) {
+    return <AuthPageComp />;
+  }
+
   return (
-    <BrowserRouter>                 
-<Routes>
-<Route path="/" element={<ProfileComp></ProfileComp>}/>
-
-<Route path="/trainPlan" element={<TrainPlanComp></TrainPlanComp>}/>
-<Route path="/progress" element={<ProgressComp></ProgressComp>}/>
-<Route path="/trainMode" element={<TrainModeComp></TrainModeComp>}/>
-<Route path="/profile" element={<ProfileComp></ProfileComp>}/>
-
-<Route path="/*" element={<ErorComp></ErorComp>}/>
-
-
-
-</Routes>
-<FooterComp/>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ProfileComp />} />
+        <Route path="/trainPlan" element={<TrainPlanComp />} />
+        <Route path="/progress" element={<ProgressComp />} />
+        <Route path="/trainMode" element={<TrainModeComp />} />
+        <Route path="/profile" element={<ProfileComp />} />
+        <Route path="/*" element={<ErorComp />} />
+      </Routes>
+      <FooterComp />
     </BrowserRouter>
-  )
+  );
 }
