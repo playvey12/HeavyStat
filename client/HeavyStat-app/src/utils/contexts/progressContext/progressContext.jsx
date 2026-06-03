@@ -2,11 +2,13 @@ import React, { Component, createContext, useContext, useState } from 'react'
 
 import ProgressService from '../../../services/ProgressService/ProgressService'
 import { useEffect } from 'react'
+import { useUser } from '../userContext/userContext'
 
 const progressService = new ProgressService()
 
 export const  ProgressContext=createContext()
 export default function ProgressContextProvider({children}) {
+  const { isAuthenticated } = useUser()
   const [selectedExercise, setSelectedExercise] = useState("Жим штанги лежа");
   const [selectedPeriod, setSelectedPeriod] = useState("30 дней");
   const [newRecordValue, setNewRecordValue] = useState(0);
@@ -31,9 +33,10 @@ const [weightsHistory,setWeightsHistory]=useState([])
 //axios
 useEffect(() => {
   loadMuscleList()
-    loadHistory()
-    loadWeightHistory()
-}, [])
+  if (!isAuthenticated) return
+  loadHistory()
+  loadWeightHistory()
+}, [isAuthenticated])
 
 const loadMuscleList = async () => {
     try {

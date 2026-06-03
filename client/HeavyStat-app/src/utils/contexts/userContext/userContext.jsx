@@ -1,6 +1,7 @@
 import React, { useEffect,Component, createContext, useContext, useState } from 'react'
 import UserService from '../../../services/ProfileService/ProfileService'
 
+import axios from 'axios'
 
 export const  UserContext=createContext()
 export default function UserContextProvider({children})  {
@@ -10,6 +11,8 @@ export default function UserContextProvider({children})  {
 const [userName,setUserName]=useState("Пользователь")
 const [telegrammUserName,setTgUserName]=useState("@user")
 const [avatarUrl,setAvatarUrl]=useState("./avatarImgs/avatar.png")
+const [authReady, setAuthReady] = useState(false)
+const [isAuthenticated, setIsAuthenticated] = useState(false)
 
 //AIDataModal
 const [aiData, setAiData] = useState({
@@ -54,11 +57,23 @@ const [allStats,setAllStats]=useState({
 const userService= new UserService()
 
 useEffect(() => {
-  loadUserData()
-  loadUserMeasurement()
-  loadUserAIData()
-  loadUserStats()
-  loadUserWeights()
+  async function initSession() {
+    try {
+      const { data: me } = await axios.get('/api/auth/me', { withCredentials: true });
+      if (me?.success) {
+        setIsAuthenticated(true);
+        await loadUserData();
+        loadUserMeasurement();
+        loadUserAIData();
+        loadUserStats();
+        loadUserWeights();
+      }
+    } catch (_) {}
+    finally {
+      setAuthReady(true);
+    }
+  }
+  initSession();
 }, []);
 
 
@@ -128,7 +143,7 @@ async function updateUserWeightsDataOnServer(name, value) {
     return (
       <UserContext.Provider
    value={{userName, setUserName,telegrammUserName,setTgUserName,avatarUrl,setAvatarUrl,setAiData,aiData,userWeightData,setUserWeightData,
-measurements,updateUserOnServer,updateUserTgName,updateAvatar,updateMeasurementOnServer,updateAiDataOnServer,updateStatsDataOnServer,allStats,setAllStats,updateUserWeightsDataOnServer }}
+measurements,updateUserOnServer,updateUserTgName,updateAvatar,updateMeasurementOnServer,updateAiDataOnServer,updateStatsDataOnServer,allStats,setAllStats,updateUserWeightsDataOnServer,authReady,isAuthenticated }}
       >
         {children}
       </UserContext.Provider>

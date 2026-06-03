@@ -6,6 +6,7 @@ class ProgressService{
 constructor(){
     this.api = axios.create({
       baseURL: "/api/progress",
+      withCredentials: true,
     });
 }
 

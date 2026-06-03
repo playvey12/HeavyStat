@@ -5,6 +5,7 @@ class PlanService {
     constructor() {
         this.api = axios.create({
             baseURL: "/api/trainPlan",
+            withCredentials: true,
         })
     }
 

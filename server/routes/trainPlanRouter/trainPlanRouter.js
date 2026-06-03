@@ -9,15 +9,7 @@ const Muscle =require('../../models/MuscleLibrary')
 
 
 
-const getUserDefault = async () => {
-    let user = await User.findOne({ telegramId: "default" })
-    if (!user) {
-        user = new User({ telegramId: "default", displayName: "Пользователь" })
-        await user.save()
-    }
-    return user
-}
-
+const requireAuth = require('../../middleware/requireAuth')
 
 //=====days===================
 planRouter.get('/days',(req,res)=>{
@@ -26,34 +18,65 @@ planRouter.get('/days',(req,res)=>{
 planRouter.get('/days/:id',(req,res)=>{
     const id=parseInt(req.params.id)
     const day=daysData.find(d=>d.id===id)
-    if(!day){
-        res.status(404).json("такого дня не анйдено")
-    }
+    if(!day){ return res.status(404).json("...") }
     res.json(day)
 })
+
+//=====muscleList (read) — без авторизации =====
+planRouter.get('/muscleList',async (req,res)=>{
+try{
+ const muscle= await Muscle.find()
+    res.json(muscle)
+}
+    catch(error){
+    res.status(500).json({ error: error.message })
+    }
+})
+
+planRouter.get("/planTypes",(req,res)=>{
+res.json(planTypes)
+})
+
+planRouter.get('/generate/:typeId', (req, res) => {
+    const typeId = parseInt(req.params.typeId)
+    let exercisesData
+    switch(typeId) {
+        case 1: exercisesData = require('../../data/exercisesDataHard'); break
+        case 2: exercisesData = require('../../data/exercisesDataLight'); break
+        case 3: exercisesData = require('../../data/exercisesDataSplit'); break
+        case 4: exercisesData = require('../../data/exercisesDataFullBody'); break
+        case 5: exercisesData = require('../../data/exercisesDataUpperLower'); break
+        case 6: exercisesData = require('../../data/exercisesDataPushPullLegs'); break
+        default: exercisesData = []
+    }
+    res.json(exercisesData)
+})
+
+planRouter.use(requireAuth)
+
 //============exercises===========
 
-planRouter.get('/exercises/:dayId',async(req,res)=>{
+planRouter.get('/exercises/:dayId', async (req, res) => {
+    try {
+        const dayId = parseInt(req.params.dayId)
+        const user = req.user
 
-    try{
-        const dayId =parseInt(req.params.dayId)
-const user= await getUserDefault()
- const exercises = await Exercise.find({
-    userId:user._id,
-    activeDayId:dayId
- })
-
-res.json(exercises)
+        
+        const exercises = await Exercise.find({
+            userId: user._id,
+            activeDayId: dayId
+        })
+        res.json(exercises)
+    } catch(error) {
+      
+        res.status(500).json({ error: error.message })
     }
-catch(error){
-    res.status(500).json({ error: error.message })
-}
 })
 
 planRouter.put('/exercises', async (req, res) => {
     try {
         const { activeDayId, exerciseId, approachId, newWeight } = req.body
-        const user = await getUserDefault()
+        const user = req.user
         
    
         const exercise = await Exercise.findOne({
@@ -89,7 +112,7 @@ planRouter.put('/exercises', async (req, res) => {
 planRouter.post('/exercises',async (req, res) => {
     try{
        const { activeDayId, exerciseData } = req.body
-      const user= await getUserDefault()
+      const user= req.user
  const newExercise=new Exercise({
     ...exerciseData,
     userId:user._id,
@@ -115,19 +138,15 @@ planRouter.post('/exercises',async (req, res) => {
 //delete
 planRouter.delete('/exercises/:activeDayId/:exerciseId',async (req, res) => {
     try{
-    const user=await getUserDefault()
-
+    const user=req.user
        const activeDayId = parseInt(req.params.activeDayId)
     const exerciseId = req.params.exerciseId
-    
-
      const result=   await Exercise.deleteOne(
     {
         _id:exerciseId,
         userId:user._id,
         activeDayId:activeDayId
     }
-   
    )
  if (result.deletedCount === 0) {
         return res.status(404).json({ error: "Упражнение не найдено" })
@@ -136,7 +155,6 @@ planRouter.delete('/exercises/:activeDayId/:exerciseId',async (req, res) => {
         userId:user._id,
         activeDayId:activeDayId
     })
-    
     res.json(exercises) 
     }
      catch(error){
@@ -152,7 +170,7 @@ planRouter.put('/exercises/:activeDayId/:exerciseId',async (req, res) => {
     const activeDayId = parseInt(req.params.activeDayId)
     const exerciseId = req.params.exerciseId
     const updatedData = req.body
-    const user=await getUserDefault()
+    const user=req.user
 
  const result = await Exercise.findOneAndUpdate(
     {
@@ -178,22 +196,6 @@ catch(error){
 
     }
 })
-
-
-
-//=====muscleList============
-planRouter.get('/muscleList',async (req,res)=>{
-try{
- const muscle= await Muscle.find()
-
-    res.json(muscle)
-}
-    catch(error){
-    res.status(500).json({ error: error.message })
-
-    }
-})
-
 
 planRouter.post('/muscleList',async (req, res) => {
     try{
@@ -245,27 +247,6 @@ planRouter.delete('/muscleList/:muscleId/:exerciseName', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message })
     }
-})
-
-//=========генерить план===============
-planRouter.get("/planTypes",(req,res)=>{
-res.json(planTypes)
-})
-
-planRouter.get('/generate/:typeId', (req, res) => {
-    const typeId = parseInt(req.params.typeId)
-    let exercisesData
-    switch(typeId) {
-        case 1: exercisesData = require('../../data/exercisesDataHard'); break
-        case 2: exercisesData = require('../../data/exercisesDataLight'); break
-        case 3: exercisesData = require('../../data/exercisesDataSplit'); break
-        case 4: exercisesData = require('../../data/exercisesDataFullBody'); break
-        case 5: exercisesData = require('../../data/exercisesDataUpperLower'); break
-        case 6: exercisesData = require('../../data/exercisesDataPushPullLegs'); break
-        default: exercisesData = []
-    }
-    
-    res.json(exercisesData)
 })
 
 module.exports = planRouter;

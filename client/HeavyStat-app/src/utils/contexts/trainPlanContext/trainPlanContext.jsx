@@ -3,10 +3,12 @@ import React, { Component, createContext, useContext, useState } from 'react'
 
 import PlanService from '../../../services/PlanService/PlanService'
 import { useEffect } from 'react'
+import { useUser } from '../userContext/userContext'
 
 
 export const  TrainPlanContext=createContext()
 export default function TrainPlanContextProvider({children})  {
+const { isAuthenticated } = useUser()
 const [exercises,setExercises]=useState([])
 const [activeDayId,setActiveDay]=useState(1)
 const filteredExercises = exercises || []
@@ -20,9 +22,10 @@ const planService= new PlanService()
 
 useEffect(() => {
  loadDaysData()
- loadExercisesData()
  loadMuscleList()
-}, [activeDayId]);
+ if (!isAuthenticated) return
+ loadExercisesData()
+}, [activeDayId, isAuthenticated]);
 //============days==========
 async function loadDaysData(){
    const daysData = await planService.getDays()

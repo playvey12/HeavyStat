@@ -7,16 +7,7 @@ const ExerciseHistory =require('../../models/ExerciseRecord')
 const WeightHistory = require('../../models/WeightHistory');
 const User = require('../../models/User');
 
-const getUserDefault = async () => {
-  let user = await User.findOne({ telegramId: "default" });
-  if (!user) {
-    user = new User({ telegramId: "default", displayName: "Пользователь" });
-    await user.save();
-  }
-  return user;
-};
-
-
+const requireAuth = require('../../middleware/requireAuth');
 
 progressRouter.get('/muscleList',async (req,res)=>{
 try{
@@ -28,11 +19,11 @@ try{
     }
 })
 
-
+progressRouter.use(requireAuth);
 
 progressRouter.get('/exerciseRecords', async (req, res) => {
   try {
-    const user = await getUserDefault();
+    const user = req.user;
     const records = await ExerciseHistory.find({ userId: user._id }).sort({ date: -1 });
     res.json(records);
   } catch (error) {
@@ -49,7 +40,7 @@ progressRouter.post('/exerciseRecords', async (req, res) => {
       return res.status(400).json({ error: 'newRecordValue должен быть числом' });
     }
     
-    const user = await getUserDefault();
+    const user = req.user;
     const now = new Date();
     const dateDisplay = `${now.getDate()}.${now.getMonth() + 1}.${now.getFullYear()}`;
 
@@ -74,7 +65,7 @@ progressRouter.post('/exerciseRecords', async (req, res) => {
 //delete
 progressRouter.delete('/exerciseRecords/:pointId', async (req, res) => {
   try {
-    const user = await getUserDefault();
+    const user = req.user;
     await ExerciseHistory.deleteOne({ _id: req.params.pointId, userId: user._id });
     const remaining = await ExerciseHistory .find({ userId: user._id }).sort({ date: -1 });
     res.json(remaining);
@@ -88,7 +79,7 @@ progressRouter.delete('/exerciseRecords/:pointId', async (req, res) => {
 
 progressRouter.get('/weightHistory', async (req, res) => {
   try {
-    const user = await getUserDefault();
+    const user = req.user;
     const records = await WeightHistory .find({ userId: user._id }).sort({ date: -1 });
     res.json(records);
   } catch (error) {
@@ -101,7 +92,7 @@ progressRouter.post('/weightHistory', async (req, res) => {
 
   try {
     const { newWeightPoint } = req.body;
-    const user = await getUserDefault();
+    const user = req.user;
     const now = new Date();
     const dateDisplay = `${now.getDate()}.${now.getMonth() + 1}.${now.getFullYear()}`;
 
@@ -124,7 +115,7 @@ progressRouter.post('/weightHistory', async (req, res) => {
 //del
 progressRouter.delete('/weightHistory/:pointId', async (req, res) => {
   try {
-    const user = await getUserDefault();
+    const user = req.user;
     await WeightHistory.deleteOne({ _id: req.params.pointId, userId: user._id });
     const remaining = await WeightHistory .find({ userId: user._id }).sort({ date: -1 });
     res.json(remaining);

@@ -75,13 +75,13 @@ const [activeModal,setactiveModal]=useState(null)
            />
       )
       },
-       { activeModal===6&&(
+       {/* { activeModal===6&&(
            <AchievementModal
            onClose={()=>setactiveModal(null)}
            
            />
       )
-      }
+      } */}
       
     </>
 

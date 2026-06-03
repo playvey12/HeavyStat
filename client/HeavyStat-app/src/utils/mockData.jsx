@@ -5,13 +5,13 @@
       title: 'Мой профиль',
       subtitle: 'Личная информация',
     },
-    {
-      id: 6,
-      icon:'fa-solid fa-trophy',
-      title: 'Достижение',
-      subtitle: 'Ваши достижения',
+    // {
+    //   id: 6,
+    //   icon:'fa-solid fa-trophy',
+    //   title: 'Достижение',
+    //   subtitle: 'Ваши достижения',
    
-    },
+    // },
     {
       id: 2,
       icon: 'fa-solid fa-pen-ruler',

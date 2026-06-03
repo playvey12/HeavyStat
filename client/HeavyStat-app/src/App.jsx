@@ -10,6 +10,7 @@ import ErorComp from './pages/ErorComp/ErorComp';
 import AuthPageComp from './pages/AuthPage/AuthPageComp';
 import { useUser } from './utils/contexts/userContext/userContext';
 
+<<<<<<< HEAD
 export default function App() {
   const { userName, telegrammUserName, avatarUrl } = useUser();
 
@@ -30,6 +31,38 @@ export default function App() {
         <Route path="/*" element={<ErorComp />} />
       </Routes>
       <FooterComp />
+=======
+
+export default function App() {
+  const { userName, avatarUrl, authReady, isAuthenticated: sessionAuth } = useUser();
+
+  const isAuthenticated = sessionAuth && userName !== "Пользователь" && userName !== null;
+
+  if (!authReady) {
+    return null;
+  }
+
+
+  return (
+    <BrowserRouter>
+      {!isAuthenticated ? (
+        <Routes>
+          <Route path="*" element={<AuthPageComp />} />
+        </Routes>
+      ) : (
+        <>
+          <Routes>
+            <Route path="/" element={<ProfileComp />} />
+            <Route path="/trainPlan" element={<TrainPlanComp />} />
+            <Route path="/progress" element={<ProgressComp />} />
+            <Route path="/trainMode" element={<TrainModeComp />} />
+            <Route path="/profile" element={<ProfileComp />} />
+            <Route path="/*" element={<ErorComp />} />
+          </Routes>
+          <FooterComp />
+        </>
+      )}
+>>>>>>> 63e5bb9 (tg autorization)
     </BrowserRouter>
   );
 }

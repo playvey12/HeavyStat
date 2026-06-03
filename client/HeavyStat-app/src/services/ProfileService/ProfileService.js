@@ -5,6 +5,7 @@ class UserService{
 constructor(){
     this.api = axios.create({
       baseURL: "/api",
+      withCredentials: true,
     });
 }
 //USERNAME

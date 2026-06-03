@@ -2,16 +2,24 @@ import React, { useEffect } from 'react';
 import styles from './AuthPageComp.module.css';
 
 export default function AuthPageComp() {
-   useEffect(() => {
+
+  useEffect(() => {
+
     const script = document.createElement('script');
     script.src = 'https://telegram.org/js/telegram-widget.js?22';
     script.async = true;
     script.setAttribute('data-telegram-login', 'HeavyStat_bot');
     script.setAttribute('data-size', 'large');
-    script.setAttribute('data-auth-url', 'http://localhost:1488/api/auth/telegram');
+
+    const authUrl = import.meta.env.DEV
+      ? `${window.location.protocol}//${window.location.hostname}:3001/api/auth/telegram`
+      : 'https://heavystat.by/api/auth/telegram';
+      
+    script.setAttribute('data-auth-url', authUrl);
     script.setAttribute('data-request-access', 'write');
     script.setAttribute('data-userpic', 'true');
-    
+    script.setAttribute('data-radius', '12'); 
+
     const container = document.getElementById('telegram-login-container');
     if (container) {
       container.innerHTML = '';
@@ -20,16 +28,24 @@ export default function AuthPageComp() {
   }, []);
 
   return (
-    <div style={{ 
-      display: 'flex', 
-      justifyContent: 'center', 
-      alignItems: 'center', 
-      height: '100vh',
-      flexDirection: 'column'
-    }}>
-      <h1>Добро пожаловать в HeavyStat!</h1>
-      <p>Войдите через Telegram, чтобы продолжить</p>
-      <div id="telegram-login-container"></div>
+
+    <div className={styles.pageContainer}>
+      <div className={styles.authCard}>
+        
+        <div className={styles.logoWrapper}>
+       
+          <img src="/favicon.jpg" alt="HeavyStat Logo" className={styles.logoImg} />
+        </div>
+
+        <h1 className={styles.title}>HeavyStat</h1>
+        <p className={styles.subtitle}>Войдите через Telegram, чтобы получить доступ к тренировкам и статистике</p>
+        
+        <div className={styles.widgetContainer} id="telegram-login-container">
+          
+        </div>
+        
+      </div>
+
     </div>
   );
 }

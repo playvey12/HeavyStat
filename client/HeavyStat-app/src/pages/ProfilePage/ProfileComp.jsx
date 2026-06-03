@@ -15,7 +15,7 @@ export default function ProfileComp() {
           <div className={styles.avatarRing}>
             <img src={`${avatarUrl}`} alt="avatar" className={styles.avatarImg} />
 
-            <span className={styles.levelBadge}>Level 67</span>
+            <span className={styles.levelBadge}>HeavyStat</span>
           </div>
         </div>
         <h1 className={styles.userName}>{userName}</h1>
@@ -31,7 +31,7 @@ export default function ProfileComp() {
         <ProfileListBtnComp />
       </nav>
       
-      <div className={styles.version}>V.1.1.0</div>
+      <div className={styles.version}>V.1.2.0</div>
       
     </div>
     
