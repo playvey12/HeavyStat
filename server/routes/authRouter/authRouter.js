@@ -1,19 +1,14 @@
 const express = require('express');
-<<<<<<< HEAD
-=======
+
 const fs = require('fs');
 const path = require('path');
->>>>>>> 63e5bb9 (tg autorization)
+
 const { telegramAuth } = require('../../config/passport');
 const router = express.Router();
 
 
 router.get('/telegram', telegramAuth, (req, res) => {
-<<<<<<< HEAD
-  res.redirect('http://localhost:5173/profile');
-=======
   const clientUrl = process.env.CLIENT_URL || (process.env.NODE_ENV === 'production' ? 'https://heavystat.by' : 'http://localhost:5173');
-  
   req.login(req.user, (err) => {
     if (err) {
       console.error('req.login error:', err);  
@@ -21,7 +16,6 @@ router.get('/telegram', telegramAuth, (req, res) => {
     }
     res.redirect(`${clientUrl}/profile`);
   });
->>>>>>> 63e5bb9 (tg autorization)
 });
 
 

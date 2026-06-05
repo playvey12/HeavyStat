@@ -6,11 +6,17 @@ const daysData=require('../../data/daysData')
 const planTypes = require('../../data/planTypes')
 const Exercise=require('../../models/Exercise')
 const Muscle =require('../../models/MuscleLibrary')
-
+ const exercisesDataHard = require('../../data/exercisesDataHard'); 
+ const exercisesDataLight = require('../../data/exercisesDataLight'); 
+ const exercisesDataSplit = require('../../data/exercisesDataSplit'); 
+ const exercisesDataFullBody = require('../../data/exercisesDataFullBody'); 
+ const exercisesDataUpperLower = require('../../data/exercisesDataUpperLower'); 
+ const exercisesDataPushPullLegs = require('../../data/exercisesDataPPL'); 
+const path = require('path');
 
 
 const requireAuth = require('../../middleware/requireAuth')
-
+planRouter.use(requireAuth)
 //=====days===================
 planRouter.get('/days',(req,res)=>{
     res.json(daysData)
@@ -37,22 +43,66 @@ planRouter.get("/planTypes",(req,res)=>{
 res.json(planTypes)
 })
 
-planRouter.get('/generate/:typeId', (req, res) => {
-    const typeId = parseInt(req.params.typeId)
-    let exercisesData
-    switch(typeId) {
-        case 1: exercisesData = require('../../data/exercisesDataHard'); break
-        case 2: exercisesData = require('../../data/exercisesDataLight'); break
-        case 3: exercisesData = require('../../data/exercisesDataSplit'); break
-        case 4: exercisesData = require('../../data/exercisesDataFullBody'); break
-        case 5: exercisesData = require('../../data/exercisesDataUpperLower'); break
-        case 6: exercisesData = require('../../data/exercisesDataPushPullLegs'); break
-        default: exercisesData = []
-    }
-    res.json(exercisesData)
-})
 
-planRouter.use(requireAuth)
+
+planRouter.put('/generate-and-set', async (req, res) => {
+    try {
+        const { typeId } = req.body;
+        const user = req.user;
+
+        if (!typeId  === undefined) {
+            return res.status(400).json({ error: "Не переданы typeId " });
+        }
+
+        let fileName = '';
+        switch(parseInt(typeId)) {
+            case 1: fileName = 'exercisesDataHard.js'; break;
+            case 2: fileName = 'exercisesDataLight.js'; break;
+            case 3: fileName = 'exercisesDataSplit.js'; break;
+            case 4: fileName = 'exercisesDataFullBody.js'; break;
+            case 5: fileName = 'exercisesDataUpperLower.js'; break;
+           case 6: fileName = 'exercisesDataPPL.js'; break;
+            default: fileName = '';
+        }
+
+        if (!fileName) {
+            return res.status(400).json({ error: "Неверный тип плана" });
+        }
+        const filePath = path.join(__dirname, '..', '..', 'data', fileName);
+        const templateExercises = require(filePath);
+
+        await Exercise.deleteMany({ 
+            userId: user._id, 
+           
+        });
+
+        const exercisesToSave = templateExercises.map(ex => ({
+            ...ex,
+            userId: user._id,
+          
+            
+            exerciseApproaches: (ex.exerciseApproaches || []).map(approach => ({
+                ...approach,
+                id: Math.floor(Date.now() + Math.random() * 1000)
+            }))
+        }));
+        if (exercisesToSave.length > 0) {
+            await Exercise.insertMany(exercisesToSave);
+        }
+
+        const updatedExercises = await Exercise.find({ 
+            userId: user._id, 
+            
+        });
+        res.status(200).json(updatedExercises);
+
+    } catch (error) {
+        console.error("Ошибка при перезаписи плана:", error);
+        res.status(500).json({ error: "Ошибка сервера при генерации плана" });
+    }
+});
+
+
 
 //============exercises===========
 
@@ -84,8 +134,6 @@ planRouter.put('/exercises', async (req, res) => {
             userId: user._id,
             activeDayId: activeDayId
         })
-        
-        console.log('Найдено упражнение:', exercise ? 'да' : 'нет')
         if (!exercise) {
             console.log("12312")
             return res.status(404).json({ error: "Упражнение не найдено" })

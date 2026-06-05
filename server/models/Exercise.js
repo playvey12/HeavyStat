@@ -16,4 +16,6 @@ const exerciseSchema = new mongoose.Schema({
     exerciseWeight: Number
 })
 
+exerciseSchema.index({ userId: 1, activeDayId: 1 })
+
 module.exports = mongoose.model('Exercise', exerciseSchema)

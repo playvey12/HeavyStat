@@ -170,15 +170,33 @@ profileRouter.get('/stats', async (req, res) => {
 profileRouter.put('/stats', async (req, res) => {
     const { name, value } = req.body;
     if (value === undefined || !name) {
-        return res.status(400).json({ error: "неправильные данные" });
+        return res.status(400).json({ error: "Неправильные данные" });
     }
     const user = req.user;
-    if (!user?.stats || user.stats[name] === undefined) {
-        return res.status(400).json({ error: "такого параметра не существует" });
+    if (!user) {
+        return res.status(401).json({ error: "Необходима авторизация" });
     }
-    user.stats[name] = value;
-    await user.save(); 
-    res.status(200).json(user.stats);
+        if (!user.stats || user.stats[name] === undefined) {
+        return res.status(400).json({ error: "Такого параметра не существует" });
+    }
+    if (name === 'totalHours') {
+        const minutesSpent = Number(value);
+        user.stats['totalHours'] += minutesSpent / 60;
+        if (minutesSpent > 20) {
+            user.stats['totalWorkouts'] += 1;
+        }
+    } else {
+        user.stats[name] += Number(value);
+    }
+
+    try {
+        user.markModified('stats');
+        await user.save(); 
+        return res.status(200).json(user.stats);
+    } catch (error) {
+        console.error("Ошибка при сохранении статистики:", error);
+        return res.status(500).json({ error: "Ошибка сервера при сохранении статистики" });
+    }
 });
 //=====================userWEights===============================
 profileRouter.get('/userWeights', async (req, res) => {
