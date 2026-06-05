@@ -10,6 +10,7 @@ export default function TrainPlanTypeModal({ onClose }) {
   const [planTypes, setPlanTypes] = useState([])
   const { setExercises,activeDayId } = usePlan()
   const planService = new PlanService()
+const [isGenerating, setIsGenerating] = useState(false)
 
   useEffect(() => {
     if (dialogRef.current) {
@@ -28,26 +29,24 @@ export default function TrainPlanTypeModal({ onClose }) {
 
 
 const handleSelectType = async (typeId) => {
-    const generatedExercises = await planService.generatePlan(typeId)
-    const refreshedExercises = generatedExercises.map(ex => ({
-        ...ex,
-        id: Date.now() + Math.random(),
-        exerciseApproaches: ex.exerciseApproaches.map(approach => ({
-            ...approach,
-            id: Date.now() + Math.random()
-        }))
-    }))
-    
+  if (isGenerating) return;
+  
+  setIsGenerating(true);
+  
+  try {
 
-    for (const exercise of refreshedExercises) {
-        await planService.addExercise(exercise.activeDayId, exercise)
-    }
-
-    const exercisesData = await planService.getExercisesByDay(activeDayId)
-    setExercises(exercisesData)
+    const updatedExercises = await planService.generatePlan(typeId);
+  
+    setExercises([...updatedExercises]);
     
-    setSelectedType(typeId)
-}
+    setSelectedType(typeId);
+    
+  } catch (error) {
+    console.error("Ошибка при перезаписи тренировочного плана:", error);
+  } finally {
+    setIsGenerating(false);
+  }
+};
   return (
     <>
       <dialog ref={dialogRef} className={styles.modal} onClose={onClose}>
