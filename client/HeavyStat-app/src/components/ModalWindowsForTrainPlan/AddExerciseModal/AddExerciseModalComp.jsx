@@ -37,7 +37,7 @@ const {selectMuscle,setSelectMuscle}=usePlan()
             <div key={muscle._id} onClick={()=>setSelectMuscle(muscle)} className={styles.muscleCard}>
          
   <img 
-  src={`/src/assets/iconForMuscules/${muscle.iconName}`} 
+  src={`/iconForMuscules/${muscle.iconName}`} 
   alt={muscle.nameOfMuscle} 
   className={styles.exerciseImg} 
   className={styles.exerciseImg} alt={muscle.nameOfMuscle} />
