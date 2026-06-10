@@ -21,16 +21,15 @@ function fromatedTimeToDisplay(){
 }
 
 function handleFinish(){
-    if(onStopWorkout){
-     completeWorkout()
-           
-     if(onClose){
-       updateStatsDataOnServer('totalTon', allStats.totalTon + totalTon)
-        updateStatsDataOnServer('totalWorkouts', (allStats.totalWorkouts || 0) + 1)
-        updateStatsDataOnServer('totalHours', (allStats.totalHours || 0) + totalSeconds / 3600)
-        onClose()
-        
-    }
+    if (onStopWorkout) {
+        completeWorkout()
+               
+        if (onClose) {
+            updateStatsDataOnServer('totalTon', (allStats.totalTon || 0) + totalTon)
+            updateStatsDataOnServer('totalWorkouts', (allStats.totalWorkouts || 0) + 1)
+            updateStatsDataOnServer('totalHours', (allStats.totalHours || 0) + totalSeconds / 3600)
+            onClose()
+        }
     }
 }
   return (

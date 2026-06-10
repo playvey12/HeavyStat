@@ -167,6 +167,7 @@ profileRouter.get('/stats', async (req, res) => {
     }
     res.status(200).json(stats);
 })
+
 profileRouter.put('/stats', async (req, res) => {
     const { name, value } = req.body;
     if (value === undefined || !name) {
@@ -176,18 +177,10 @@ profileRouter.put('/stats', async (req, res) => {
     if (!user) {
         return res.status(401).json({ error: "Необходима авторизация" });
     }
-        if (!user.stats || user.stats[name] === undefined) {
+    if (!user.stats || user.stats[name] === undefined) {
         return res.status(400).json({ error: "Такого параметра не существует" });
     }
-    if (name === 'totalHours') {
-        const minutesSpent = Number(value);
-        user.stats['totalHours'] += minutesSpent / 60;
-        if (minutesSpent > 20) {
-            user.stats['totalWorkouts'] += 1;
-        }
-    } else {
-        user.stats[name] += Number(value);
-    }
+    user.stats[name] = Number(value);
 
     try {
         user.markModified('stats');
@@ -198,6 +191,7 @@ profileRouter.put('/stats', async (req, res) => {
         return res.status(500).json({ error: "Ошибка сервера при сохранении статистики" });
     }
 });
+
 //=====================userWEights===============================
 profileRouter.get('/userWeights', async (req, res) => {
     const userWeights = req.user?.userWeights; 
