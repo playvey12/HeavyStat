@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from 'react'
 import styles from './TrainModeExerciseListComp.module.css'
 import { usePlan } from '../../../utils/contexts/trainPlanContext/trainPlanContext'
@@ -10,16 +9,26 @@ import EditExerciseModalComp from '../../ModalWindowsForTrainMode/EditExerciseMo
 
 export default function TrainModeExerciseListComp({ onBackToDaySelect }) {
   const { filteredExercises, activeDayId, saveNewWeight } = usePlan()
-  const [exerciseQueue, setExerciseQueue] = useState([])
-  const [activeExercise, setActiveExercise] = useState(null)
+  const { 
+    setTotalTon, 
+    isWorkoutActive, 
+    completeWorkout, 
+    setIsWorkoutActive,
+    activeExercise, 
+    setActiveExercise,
+    exerciseQueue, 
+    setExerciseQueue,
+    currentApproachIndex, 
+    setCurrentApproachIndex,
+    isFinished, 
+    setIsFinished
+  } = useTrainMode()
+
   const [isRemoving, setIsRemoving] = useState(false)
   const [isEntering, setIsEntering] = useState(false)
   const [completedExercise, setCompletedExercise] = useState(null)
-  const [isFinished, setIsFinished] = useState(false)
-  const { setTotalTon, isWorkoutActive, completeWorkout, setIsWorkoutActive } = useTrainMode()
   const [isNewRecord, setIsNewRecord] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
-  const [currentApproachIndex, setCurrentApproachIndex] = useState(0)
 
   const activeExerciseIdRef = useRef(null)
   const currentApproachIndexRef = useRef(0)
@@ -28,40 +37,50 @@ export default function TrainModeExerciseListComp({ onBackToDaySelect }) {
     currentApproachIndexRef.current = currentApproachIndex
   }, [currentApproachIndex])
 
-
+  // ЭФФЕКТ ИНИЦИАЛИЗАЦИИ И СБРОСА
   useEffect(() => {
     if (filteredExercises && filteredExercises.length > 0) {
-    
-      const shouldReset = !activeExercise || activeExercise.id !== filteredExercises[0]?.id
+      if (isWorkoutActive && activeExercise) {
+        activeExerciseIdRef.current = activeExercise._id || activeExercise.id
+        currentApproachIndexRef.current = currentApproachIndex
+        return
+      }
+      
+      const activeId = activeExercise?._id || activeExercise?.id
+      const firstId = filteredExercises[0]?._id || filteredExercises[0]?.id
+      const shouldReset = !activeExercise || activeId !== firstId
       
       if (shouldReset) {
         const firstExercise = JSON.parse(JSON.stringify(filteredExercises[0]))
         const queueCopy = filteredExercises.slice(1).map(ex => JSON.parse(JSON.stringify(ex)))
         
         setActiveExercise(firstExercise)
-        activeExerciseIdRef.current = firstExercise.id
+        activeExerciseIdRef.current = firstExercise._id || firstExercise.id
         setExerciseQueue(queueCopy)
         setCurrentApproachIndex(0)
         currentApproachIndexRef.current = 0
+        setIsWorkoutActive(true) 
       }
     } else {
-      setActiveExercise(null)
-      setExerciseQueue([])
-      setCurrentApproachIndex(0)
-      currentApproachIndexRef.current = 0
-      activeExerciseIdRef.current = null
+      if (!isWorkoutActive) {
+        setActiveExercise(null)
+        setExerciseQueue([])
+        setCurrentApproachIndex(0)
+        currentApproachIndexRef.current = 0
+        activeExerciseIdRef.current = null
+      }
     }
-  }, [filteredExercises, activeDayId])
+  }, [filteredExercises, activeDayId, isWorkoutActive])
 
-
+  // ЭФФЕКТ СИНХРОНИЗАЦИИ ДАННЫХ (ГДЕ БЫЛА ОШИБКА)
   useEffect(() => {
     if (activeExercise && filteredExercises.length > 0) {
-     
-      const updatedExercise = filteredExercises.find(ex => ex.id === activeExercise.id)
+      const currentActiveId = activeExercise._id || activeExercise.id
+      // ИСПРАВЛЕНИЕ: Ищем по _id || id, чтобы не падать в undefined === undefined
+      const updatedExercise = filteredExercises.find(ex => (ex._id || ex.id) === currentActiveId)
       
       if (updatedExercise && JSON.stringify(updatedExercise.exerciseApproaches) !== JSON.stringify(activeExercise.exerciseApproaches)) {
-      
-        setActiveExercise(prev => ({
+         setActiveExercise(prev => ({
           ...prev,
           exerciseApproaches: updatedExercise.exerciseApproaches,
           exerciseWeights: updatedExercise.exerciseApproaches.map(a => a.weight),
@@ -69,18 +88,18 @@ export default function TrainModeExerciseListComp({ onBackToDaySelect }) {
         }))
       }
     }
-  }, [filteredExercises, activeExercise?.id])
+  }, [filteredExercises, activeExercise?._id, activeExercise?.id])
 
-const handleWeightUpdated = (newWeight) => {
+  const handleWeightUpdated = (newWeight) => {
     if (activeExercise && currentApproach) {
-    console.log('saveNewWeight params:', {
-    exerciseId: activeExercise._id,
-    approachId: currentApproach.id,
-    newWeight
-})
-        saveNewWeight(activeExercise._id, currentApproach.id, newWeight)
+      console.log('saveNewWeight params:', {
+        exerciseId: activeExercise._id,
+        approachId: currentApproach.id,
+        newWeight
+      })
+      saveNewWeight(activeExercise._id, currentApproach.id, newWeight)
     }
-}
+  }
 
   if (filteredExercises.length === 0) {
     return <EmptyDayComp dayName="Текущего дня" onBackToDaySelect={onBackToDaySelect} />
@@ -106,7 +125,7 @@ const handleWeightUpdated = (newWeight) => {
           setTimeout(() => {
             const nextExercise = exerciseQueue[0]
             setActiveExercise(nextExercise)
-            activeExerciseIdRef.current = nextExercise.id
+            activeExerciseIdRef.current = nextExercise._id || nextExercise.id
             setExerciseQueue(prev => prev.slice(1))
             setCurrentApproachIndex(0)
             currentApproachIndexRef.current = 0
@@ -230,22 +249,26 @@ const handleWeightUpdated = (newWeight) => {
           </div>
 
           <div className={styles.exercisesScrollContainer}>
-            {exerciseQueue?.map((exercise, idx) => (
-              <div 
-                key={exercise._id} 
-                className={`${styles.exerciseCardMini} ${nextExercise?.id === exercise.id && isRemoving ? styles.movingToActive : ''}`}
-              >
-                <div className={styles.miniIcon}>
-                  <i className="fas fa-dumbbell red-icon"></i>
+            {exerciseQueue?.map((exercise, idx) => {
+              const nextId = nextExercise?._id || nextExercise?.id
+              const currentId = exercise._id || exercise.id
+              return (
+                <div 
+                  key={currentId || idx} 
+                  className={`${styles.exerciseCardMini} ${nextId === currentId && isRemoving ? styles.movingToActive : ''}`}
+                >
+                  <div className={styles.miniIcon}>
+                    <i className="fas fa-dumbbell red-icon"></i>
+                  </div>
+                  <div className={styles.queueBar}>
+                    <span className={styles.miniTitle}>{exercise.exerciseName}</span>
+                    <span className={styles.miniStatus}>
+                      {nextId === currentId && isRemoving ? 'СЛЕДУЮЩЕЕ →' : 'ОЖИДАНИЕ'}
+                    </span>
+                  </div>
                 </div>
-                <div className={styles.queueBar}>
-                  <span className={styles.miniTitle}>{exercise.exerciseName}</span>
-                  <span className={styles.miniStatus}>
-                    {nextExercise?.id === exercise.id && isRemoving ? 'СЛЕДУЮЩЕЕ →' : 'ОЖИДАНИЕ'}
-                  </span>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>
