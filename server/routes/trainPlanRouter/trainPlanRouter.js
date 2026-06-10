@@ -50,26 +50,24 @@ planRouter.put('/generate-and-set', async (req, res) => {
         const { typeId } = req.body;
         const user = req.user;
 
-        if (!typeId  === undefined) {
-            return res.status(400).json({ error: "Не переданы typeId " });
+        if (typeId === undefined || typeId === null) {
+            return res.status(400).json({ error: "Не переданы typeId" });
         }
 
-        let fileName = '';
-        switch(parseInt(typeId)) {
-            case 1: fileName = 'exercisesDataHard.js'; break;
-            case 2: fileName = 'exercisesDataLight.js'; break;
-            case 3: fileName = 'exercisesDataSplit.js'; break;
-            case 4: fileName = 'exercisesDataFullBody.js'; break;
-            case 5: fileName = 'exercisesDataUpperLower.js'; break;
-           case 6: fileName = 'exercisesDataPPL.js'; break;
-            default: fileName = '';
-        }
+        const exercisesMap = {
+            1: exercisesDataHard,
+            2: exercisesDataLight,
+            3: exercisesDataSplit,
+            4: exercisesDataFullBody,
+            5: exercisesDataUpperLower,
+            6: exercisesDataPushPullLegs,
+        };
 
-        if (!fileName) {
+        const templateExercises = exercisesMap[parseInt(typeId)];
+
+        if (!templateExercises) {
             return res.status(400).json({ error: "Неверный тип плана" });
         }
-        const filePath = path.join(__dirname, '..', '..', 'data', fileName);
-        const templateExercises = require(filePath);
 
         await Exercise.deleteMany({ 
             userId: user._id, 

@@ -1,16 +1,4 @@
 /* ProfileSettingsModalComp.module.css */
-:root {
-    --modal-overlay: rgba(0, 0, 0, 0.85);
-    --modal-bg: #1c1c24;
-    --input-bg: #252530;
-    --accent-main: #ff3b5c;
-    --accent-hover: #ff4d6d;
-    --accent-shadow: rgba(255, 59, 92, 0.4);
-    --text-bright: #ffffff;
-    --text-muted: #8e8e93;
-    --border-light: rgba(255, 255, 255, 0.1);
-    --blur-radius: 10px;
-}
 
 .modal {
     position: fixed; /* Фиксируем относительно окна браузера */

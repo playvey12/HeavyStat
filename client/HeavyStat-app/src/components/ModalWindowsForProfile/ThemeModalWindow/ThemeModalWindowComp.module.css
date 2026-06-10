@@ -1,18 +1,5 @@
 /* ThemeModalComp.module.css */
-:root {
-    --modal-overlay: rgba(0, 0, 0, 0.85);
-    --modal-bg: #1c1c24;
-    --text-main: #ffffff;
-    --text-muted: #8e8e93;
-    --theme-card-bg: #252530;
-    --theme-active-border: #ff3b5c;
-    --border-light: rgba(255, 255, 255, 0.1);
-    --accent-shadow: rgba(255, 59, 92, 0.4);
-    --accent-main: #ff3b5c;
-    --radius-md: 15px;
-    --blur-radius: 10px;
-    --transition-fast: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
+
 .modal {
     position: fixed; /* Фиксируем относительно окна браузера */
     top: 0;

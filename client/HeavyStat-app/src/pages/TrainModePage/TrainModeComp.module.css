@@ -1,21 +1,6 @@
 /* TrainMode.module.css */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
 
-:root {
-    --bg-radial-start: #1e1e2e;
-    --bg-radial-end: #0d0d12;
-    --card-bg: #1a1a20;
-    --accent-color: #ff3b5c;
-    --accent-glow: rgba(255, 59, 92, 0.4);
-    --text-main: #ffffff;
-    --text-dim: #8e8e93;
-    --icon-bg: #2c2c34;
-    --border-color: #2c2c34;
-    --font-main: 'Montserrat', sans-serif;
-    --radius-lg: 32px;
-    --radius-md: 16px;
-    --card-hover: #25252d;
-}
 
 .workoutScreenContainer {
     height: 100vh;

@@ -1,0 +1,105 @@
+
+:root,
+html[data-theme="dark"] {
+  /* Backgrounds */
+  --bg-radial-start: #1e1e2e;
+  --bg-radial-end: #0d0d12;
+  --card-bg: #1a1a20;
+  --card-hover: #25252d;
+  --modal-bg: #1c1c24;
+  --modal-overlay: rgba(0, 0, 0, 0.85);
+  --theme-card-bg: #252530;
+  --icon-bg: #2c2c34;
+  --input-bg: #252530;
+  --help-item-bg: #252530;
+
+  /* Borders */
+  --border-color: #2c2c34;
+  --border-light: rgba(255, 255, 255, 0.1);
+
+  /* Text */
+  --text-main: #ffffff;
+  --text-bright: #ffffff;
+  --text-dim: #8e8e93;
+  --text-muted: #8e8e93;
+
+  /* Accent — red */
+  --accent-main: #ff3b5c;
+  --accent-color: #ff3b5c;
+  --accent-hover: #e02e4e;
+  --accent-glow: rgba(255, 59, 92, 0.4);
+  --accent-shadow: rgba(255, 59, 92, 0.4);
+  --theme-active-border: #ff3b5c;
+  --primary-color: #ff3b5c;
+  --primary-dark: #c9283f;
+
+  /* Misc */
+  --blur-radius: 10px;
+  --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --transition-fast: 0.2s;
+  --transition-slow: 0.6s;
+  --transition-smooth: 0.3s ease;
+  --transition-bounce: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---------- LIGHT THEME ---------- */
+html[data-theme="light"] {
+  /* Backgrounds */
+  --bg-radial-start: #f0f0f8;
+  --bg-radial-end: #e8e8f0;
+  --card-bg: #ffffff;
+  --card-hover: #f5f5fa;
+  --modal-bg: #ffffff;
+  --modal-overlay: rgba(0, 0, 0, 0.5);
+  --theme-card-bg: #f2f2f7;
+  --icon-bg: #e8e8f0;
+  --input-bg: #f2f2f7;
+  --help-item-bg: #f2f2f7;
+
+  /* Borders */
+  --border-color: #e0e0ea;
+  --border-light: rgba(0, 0, 0, 0.08);
+
+  /* Text */
+  --text-main: #1a1a2e;
+  --text-bright: #1a1a2e;
+  --text-dim: #6e6e7e;
+  --text-muted: #6e6e7e;
+
+
+  --accent-main: #ff3b5c;
+  --accent-color: #ff3b5c;
+  --accent-hover: #e02e4e;
+  --accent-glow: rgba(255, 59, 92, 0.25);
+  --accent-shadow: rgba(255, 59, 92, 0.3);
+  --theme-active-border: #ff3b5c;
+  --primary-color: #ff3b5c;
+  --primary-dark: #c9283f;
+
+  /* Misc — те же */
+  --blur-radius: 10px;
+  --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --transition-fast: 0.2s;
+  --transition-slow: 0.6s;
+  --transition-smooth: 0.3s ease;
+  --transition-bounce: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background: var(--bg-radial-end);
+  color: var(--text-main);
+  transition: background 0.3s ease, color 0.3s ease;
+}

@@ -1,17 +1,4 @@
 /* HelpModalComp.module.css */
-:root {
-    --modal-overlay: rgba(0, 0, 0, 0.85);
-    --modal-bg: #1c1c24;
-    --help-item-bg: #252530;
-    --tg-color: #229ED9;
-    --accent-main: #ff3b5c;
-    --accent-glow: rgba(255, 59, 92, 0.4);
-    --text-bright: #ffffff;
-    --text-muted: #8e8e93;
-    --text-dim: #8e8e93;
-    --radius-md: 15px;
-    --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-}
 
 .modal {
     display: none;

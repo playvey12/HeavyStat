@@ -11,7 +11,7 @@ export default function TrainPlanContextProvider({children})  {
 const { isAuthenticated } = useUser()
 const [exercises,setExercises]=useState([])
 const [activeDayId,setActiveDay]=useState(1)
-const filteredExercises = exercises || []
+const filteredExercises = exercises.filter(ex => ex.activeDayId === activeDayId)
 const [MuskuleExercise, setMuskuleExercise] = useState([]) 
 const [selectMuscle,setSelectMuscle]=useState(null)
 const[newWeightValue,setNewWeightValue]=useState()

@@ -1,4 +1,3 @@
-// App.jsx
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProfileComp from './pages/ProfilePage/ProfileComp';
@@ -10,28 +9,7 @@ import ErorComp from './pages/ErorComp/ErorComp';
 import AuthPageComp from './pages/AuthPage/AuthPageComp';
 import { useUser } from './utils/contexts/userContext/userContext';
 
-<<<<<<< HEAD
-export default function App() {
-  const { userName, telegrammUserName, avatarUrl } = useUser();
 
-  const isAuthenticated = userName !== "Пользователь" && userName !== null;
-
-  if (!isAuthenticated) {
-    return <AuthPageComp />;
-  }
-
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<ProfileComp />} />
-        <Route path="/trainPlan" element={<TrainPlanComp />} />
-        <Route path="/progress" element={<ProgressComp />} />
-        <Route path="/trainMode" element={<TrainModeComp />} />
-        <Route path="/profile" element={<ProfileComp />} />
-        <Route path="/*" element={<ErorComp />} />
-      </Routes>
-      <FooterComp />
-=======
 
 export default function App() {
   const { userName, avatarUrl, authReady, isAuthenticated: sessionAuth } = useUser();
@@ -62,7 +40,7 @@ export default function App() {
           <FooterComp />
         </>
       )}
->>>>>>> 63e5bb9 (tg autorization)
+
     </BrowserRouter>
   );
 }
